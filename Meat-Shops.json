@@ -1,0 +1,108 @@
+ [
+    {
+        "store_name": "Mcdonalds",
+        "main_meats": [
+            {
+                "name": "regular meat (2oz)",
+                "price": 0.6
+            },
+            {
+                "name": "quater pounder patties (4oz)",
+                "price": 1.50
+            },
+            {
+                "name": "sausage",
+                "price": 1.59
+            }
+        ],
+        "add_ons":[
+            {
+                "name": "bacon",
+                "price": 1.40
+            },
+            {
+                "name": "cheese",
+                "price": 0.99
+            }
+        ]
+    },
+    {
+        "store_name": "Wendy's",
+        "main_meats": [
+            {
+                "name": "small patties (2oz)",
+                "price": 0.99
+            },{
+                "name": "large patties (4oz)",
+                "price": 1.29
+            },{
+                "name": "sausage",
+                "price": 1.10
+            }
+        ],
+        "add_ons":[
+            {
+                "name": "bacon",
+                "price": 1.40
+            },
+            {
+                "name": "cheese",
+                "price": 0.99
+            }
+        ]
+    },
+    {
+        "store_name": "Burger King",
+        "main_meats":[
+            {
+                "name": "whopper jr. patty (2oz)",
+                "price": 1.10
+            },{
+                "name": "whopper patty (4oz)",
+                "price": 1.70
+            }
+        ],
+        "add_ons":[
+            {
+                "name": "bacon",
+                "price": 1.10
+            },
+            {
+                "name": "cheese",
+                "price": 0.60
+            }
+        ]
+    },
+    {
+        "store_name": "Chick-Fil-A",
+        "main_meats":[{
+            "name": "grilled chicken fillet",
+            "price": 4.60
+        },
+        {
+            "name": "grilled spicy chicken fillet",
+            "price": 4.60
+        },
+        {
+            "name": "Grilled Nuggets",
+            "options": [{"name":"4-ct-Grilled-Nuggets", "price":2.32},{"name":"6-ct-Grilled-Nuggets", "price": 3.48 }, {"name":"8-ct-Grilled-Nuggets", "price": 4.59}, {"name":"12-ct-Grilled-Nuggets", "price": 6.65}]
+        }
+        ],
+        "add_ons":[
+            {
+                "name": "bacon",
+                "price": 1.10
+            },
+            {
+                "name": "sausage",
+                "price": 1.50
+            },
+            {
+                "name": "cheese",
+                "options": "colby, american, pepper jack",
+                "price": 0.30
+            }
+        ]
+    }
+]
+
