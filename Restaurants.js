@@ -1,37 +1,43 @@
-import React, { useEffect, useState } from "react"
-import RenderDOM from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Menu from './Menu';
-import './index.css';
+import { BrowserRouter, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
 
 
+// "react": "^17.0.2",
+//   "react-dom": "^17.0.2",
+
+
+
+const meatList = require('./Meat-Shops.json');
 // research react-router
 
 
 const Restaurants = () => {
-  const meatList = require('./Meat-Shops.json');
-
+  useEffect(() => {
+    console.log(ReactDOM.version)
+  })
   return meatList.map((restaurant) => {
     return (
-      <Link to={`/menu/${restaurant.store_name}`}>
-        <div className="restaurant-container">
-          <div className="image-container">
-            <img src={restaurant.image} alt={restaurant.alt} />
+      <div>
+        <Link to={`/menu/${restaurant.urlParams}`}>
+          <div className="restaurant-container">
+            <div className="image-container">
+              <img src={restaurant.image} alt={restaurant.alt} />
+            </div>
+            <div className="info-container" >
+              <h4>{restaurant.domDisplayName}</h4>
+              <h5>Pick-up</h5>
+            </div>
           </div>
-          <div className="info-container" >
-            <h4>{restaurant.store_name}</h4>
-            <h5>Pick-up</h5>
-          </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
+
 
     );
   })
 }
 
+
+
+
 export default Restaurants;
-
-
-
-
