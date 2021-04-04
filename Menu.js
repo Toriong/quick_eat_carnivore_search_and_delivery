@@ -1,21 +1,14 @@
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom'
+
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import meatList from './Meat-Shops.json'
+import './navBar.css';
 
 
 
-let meatList = require('./Meat-Shops.json');
 const Menu = () => {
     const { storeName } = useParams();
-    useEffect(() => {
-        console.log(storeName);
-    })
-    let urlString = window.location.href;
-    let urlStringArray = urlString.split('/');
-    let selectedRestaurant = urlStringArray[urlStringArray.length - 1];
-    let selectedRestaurantInfo = meatList.find((restaurant) => restaurant.urlParams === selectedRestaurant);
-    console.log(selectedRestaurantInfo.main_meats);
-    console.log(selectedRestaurantInfo.add_ons);
-
+    const selectedRestaurantInfo = meatList.find((restaurant) => restaurant.urlParams === storeName);
     return <>
         <div>
             <h2>Main-Meats</h2>
@@ -74,7 +67,7 @@ const Menu = () => {
 
             }
         })}
-        <p>hello</p>
+
     </>
 }
 
