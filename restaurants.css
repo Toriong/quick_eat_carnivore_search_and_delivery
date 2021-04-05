@@ -1,4 +1,40 @@
 .restaurant-container {
-  border: black solid 2px;
-  width: 50%;
+  border: grey solid 0.8px;
+  /* width: 25%; */
+}
+
+.image-and-info-parent-container > div {
+  display: inline-block;
+}
+
+.homepage-wrapper {
+  margin-top: 0;
+  /* top: 0%; */
+  /* position: relative; */
+}
+
+.restaurants-results-container {
+  width: 35%;
+  border: white solid 0.8px;
+  overflow-y: auto;
+  height: 780px;
+}
+
+.info-container {
+  /* float: right; */
+  /* border: solid black 2px; */
+  height: 100%;
+  width: 200px;
+}
+
+.image-container {
+  /* height: 100%;
+  width: 100%; */
+  /* border: solid pink 2px; */
+}
+
+.image-and-info-parent-container {
+  /* width: 500px;
+  height: 200px; */
+  /* border: solid 2px black; */
 }
