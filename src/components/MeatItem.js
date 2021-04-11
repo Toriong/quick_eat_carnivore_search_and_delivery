@@ -5,26 +5,24 @@ import 'font-awesome/css/font-awesome.min.css'
 
 
 
-const MeatItem = ({ meatItemInfo, addOns }) => {
-    const { confirmedPriceTotal, confirmedOrderNumTotal } = useContext(MeatInfoContext);
+const MeatItem = ({ meatItemInfo, addOns, selectRestaurantName }) => {
+    const { confirmedPriceTotal, confirmedQuantityOfOrder, confirmedNameOfRestaurantOfOrder, confirmedNameOfOrder } = useContext(MeatInfoContext);
     const [isAddOnMenuOpen, setIsAddOnMenuOpen] = useState(false);
     const [openSelectedMeatItemModal, setOpenSelectedMeatItemModal] = useState(false);
     const [hasOrderTotalIncreased, setHasOrderTotalIncreased] = useState(false);
     const [orderTotal, setOrderTotal] = useState(meatItemInfo.price);
-    let [count, setCount] = useState(1);
-    const [confirmedCount, setConfirmedCount] = confirmedOrderNumTotal;
+    let [mainMeatCount, setCount] = useState(1);
+    const [confirmedCount, setConfirmedCount] = confirmedQuantityOfOrder;
     const [confirmedOrderPriceTotal, setConfirmedOrderPriceTotal] = confirmedPriceTotal;
-    useEffect(() => {
-        console.log(count);
-        console.log(orderTotal)
-    })
+    const [restaurantOfOrderConfirmed, setRestaurantOfOrderConfirmed] = confirmedNameOfRestaurantOfOrder;
+    const [nameOfOrder, setNameOfOrder] = confirmedNameOfOrder;
     const priceChange = (countIncrement) => {
         setCount(countIncrement);
-        if (count === 0) {
-            setCount(++count);
+        if (mainMeatCount === 0) {
+            setCount(++mainMeatCount);
             return;
         }
-        setOrderTotal(count * meatItemInfo.price);
+        setOrderTotal(mainMeatCount * meatItemInfo.price);
         if (orderTotal === meatItemInfo.price) {
             setHasOrderTotalIncreased(!hasOrderTotalIncreased);
         } else if (orderTotal > meatItemInfo.price) {
@@ -33,17 +31,15 @@ const MeatItem = ({ meatItemInfo, addOns }) => {
     }
     const confirmedOrder = () => {
         setConfirmedOrderPriceTotal(orderTotal);
-        setConfirmedCount(count);
+        setConfirmedCount(mainMeatCount);
+        setRestaurantOfOrderConfirmed(selectRestaurantName);
+        setNameOfOrder(meatItemInfo.name)
     };
     const cancelOrder = () => {
         setCount(1);
         setOrderTotal(meatItemInfo.price);
         setOpenSelectedMeatItemModal(!openSelectedMeatItemModal);
     }
-    useEffect(() => {
-        console.log("current count:", count);
-        console.log("orderTotal variable", orderTotal)
-    })
     return openSelectedMeatItemModal ? <>
         <div className="main-meats-container">
             <div className="name-and-price-container">
@@ -54,7 +50,7 @@ const MeatItem = ({ meatItemInfo, addOns }) => {
                 {meatItemInfo.image}
             </div>
         </div>
-        <div id="blocker" onClick={cancelOrder} />
+        <div className="blocker" onClick={cancelOrder} />
         <div className="selected-food-container">
             <div className="picture-container">
                 <img src={meatItemInfo.image} alt={meatItemInfo.alt} />
@@ -64,25 +60,34 @@ const MeatItem = ({ meatItemInfo, addOns }) => {
                     <h1>{meatItemInfo.name}</h1>
                 </div>
             </div>
-            <div className="add-on-container">
-                {isAddOnMenuOpen ?
-                    <div className="add-on-menu">
-                        <div>
-                            Add-On:
-                        </div>
-                        <div>
-                            <i class="fa fa-angle-up" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    :
-                    <div className="add-on-menu-container">
+            {isAddOnMenuOpen ?
+                <>
+                    <div className="add-on-container">
                         <div className="add-on-text-container">
                             <h2>Add-On:</h2>
-                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            <div className="arrow-container">
+                                <i class="fa fa-angle-down" aria-hidden="true" onClick={() => { setIsAddOnMenuOpen(!isAddOnMenuOpen) }}></i>
+                            </div>
                         </div>
                     </div>
-                }
-            </div>
+                    <div className="add-ons-list-container">
+                        {addOns.map((addOnItem) => {
+                            return <div>
+
+                            </div>
+                        })}
+                    </div>
+                </>
+                :
+                <div className="add-on-container">
+                    <div className="add-on-text-container">
+                        <h2>Add-On:</h2>
+                        <div className="arrow-container">
+                            <i class="fa fa-angle-up" aria-hidden="true" onClick={() => { setIsAddOnMenuOpen(!isAddOnMenuOpen) }}></i>
+                        </div>
+                    </div>
+                </div>
+            }
             <div className="quantity-and-add-to-cart-container">
                 <div className="quantity-buttons-container">
                     <div className="add-button">
@@ -93,11 +98,11 @@ const MeatItem = ({ meatItemInfo, addOns }) => {
                 </div>
                 <div className="add-to-cart-button-quauntity-button-container">
                     <div className="quantity-button-container">
-                        <div className="plus-sign" onClick={() => { priceChange(++count) }}>
+                        <div className="plus-sign" onClick={() => { priceChange(++mainMeatCount) }}>
                             +
-                            </div>
-                        <div className="count">{count}</div>
-                        <div className="minus-sign" onClick={() => { priceChange(--count) }}>
+                        </div>
+                        <div className="count">{mainMeatCount}</div>
+                        <div className="minus-sign" onClick={() => { priceChange(--mainMeatCount) }}>
                             -
                         </div>
                     </div>
@@ -106,7 +111,7 @@ const MeatItem = ({ meatItemInfo, addOns }) => {
                             <div>
                                 Add
                             </div>
-                            <div className="count">{count}</div>
+                            <div className="count">{mainMeatCount}</div>
                             <div>
                                 to order
                             </div>
