@@ -1,0 +1,21 @@
+.results-container-restaurants {
+  width: 100px;
+  height: 100px;
+  border: solid 2px black;
+  background-color: magenta;
+}
+
+.results-container-meat-item {
+  border: solid 0.8px gray;
+  background-color: blue;
+}
+
+.results-container-addOn-item {
+  border: solid 0.8px pink;
+  background-color: blanchedalmond;
+}
+
+.results-container-generic-names {
+  border: solid brown 0.8px;
+  background-color: burlywood;
+}
