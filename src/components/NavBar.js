@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import SearchResults from './SearchResults';
 import { MeatInfoContext } from './MeatInfoProvider';
 import 'font-awesome/css/font-awesome.min.css'
 import { BrowserRouter } from 'react-router-dom';
@@ -17,19 +18,19 @@ const NavBar = () => {
     const [nameOfOrder, setNameOfOrder] = confirmedNameOfOrder;
     const [changeQuantityOfOrder, setChangeQuantityOfOrder] = useState(confirmedQuantity)
     const [isSideNavBarOpen, setIsSideNavBarOpen] = useState(false);
+    const [isSearchResultsContainerOpen, setIsSearchResultsContainerOpen] = useState(false);
+    const [searchInput, setSearchInput] = useState("");
+    const openSearchResultsContainer = (event) => {
+        setIsSearchResultsContainerOpen(true);
+        setSearchInput(event.target.value);
+    }
+    useEffect(() => {
+        console.log(searchInput);
+    })
     const editQuantityNum = (event) => {
         let value = event.target.value;
         setChangeQuantityOfOrder(value);
     }
-    // const quantityNumOptions = [];
-    // for (let num = 1; num <= 99; num++) {
-    //     quantityNumOptions.push(<option value={num}>{num}</option>)
-    // }
-    // setChangeQuantityOfOrder(confirmedQuantity);
-    useEffect(() => {
-        console.log(confirmedQuantity);
-        console.log(changeQuantityOfOrder)
-    })
     const openSideNavBar = () => {
         console.log('open side navbar')
         setIsSideNavBarOpen(!isSideNavBarOpen)
@@ -103,13 +104,19 @@ const NavBar = () => {
                     </div>
                 </div>
                 <div className='search-bar-container'>
-
                     <div className="search-bar-sub-container">
                         <div id="search-icon-container">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </div>
-                        <input type="text" className="search-input" />
+                        <input type="text" className="search-input" value={searchInput} onChange={openSearchResultsContainer} />
                     </div>
+                    {isSearchResultsContainerOpen ?
+                        <div className="search-results-container">
+                            <SearchResults searchInput={searchInput} />
+                        </div>
+                        :
+                        null
+                    }
                 </div>
                 <div className="cart-container">
                     <div id="cart" onClick={() => { setIsCartOpen(!isCartOpen) }}>
