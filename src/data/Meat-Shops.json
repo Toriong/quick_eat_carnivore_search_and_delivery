@@ -7,18 +7,21 @@
         "main_meats": [
             {
                 "name": "Regular Meat (2oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 0.6,
                 "image": " ",
                 "alt": "regular_meat_picture"
             },
             {
                 "name": "Quater Pounder Patties (4oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 1.50,
                 "image": " ",
                 "alt": "quater_pounder_image"
             },
             {
                 "name": "sausage",
+                "genericNames":["sausage", "patty", "sausage patty"],
                 "price": 1.59,
                 "image": " ",
                 "alt": "sausage_image"
@@ -47,16 +50,19 @@
         "main_meats": [
             {
                 "name": "small patties (2oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 0.99,
                 "image": " ",
                 "alt": "small_patties_image"
             },{
                 "name": "large patties (4oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 1.29,
                 "image": " ",
                 "alt": "large_patties_image"
             },{
-                "name": "sausage",
+                "name": "sausage patty",
+                "genericNames": ["sausage", "patty"],
                 "price": 1.10,
                 "image": " ",
                 "alt": "sausage_image"
@@ -85,11 +91,13 @@
         "main_meats":[
             {
                 "name": "whopper jr. patty (2oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 1.10,
                 "image": " ",
                 "alt": "whopper_jr_image"
             },{
                 "name": "whopper patty (4oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 1.70,
                 "image": " ",
                 "alt": "whopper_patty_image"
@@ -117,18 +125,21 @@
         "image": "/chick-fil-a-logo.jpeg",
         "main_meats":[{
             "name": "Grilled chicken fillet",
+            "genericNames": ["chicken", "fillet"],
             "price": 4.60,
             "image": " ",
             "alt": "grilled_chicken_image"
         },
         {
             "name": "Grilled spicy chicken fillet",
+            "genericNames": ["chicken", "fillet"],
             "price": 4.60,
             "image": " ",
             "alt": "grilled_spicy_chicken_image"
         },
         {
             "name": "Grilled Nuggets",
+            "genericNames": ["chicken nuggets", "nuggets"],
             "options": [{"name":"4-ct-Grilled-Nuggets", "price": 2.32, "image": ""},{"name":"6-ct-Grilled-Nuggets", "price": 3.48, "image": "" }, {"name":"8-ct-Grilled-Nuggets", "price": 4.59, "image": ""}, {"name":"12-ct-Grilled-Nuggets", "price": 6.65, "image": ""}]
         }
         ],
@@ -162,11 +173,13 @@
         "main_meats":[
             {
                 "name": "Small patty (2oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 1.10,
                 "image": " ",
                 "alt": "small_patty_image"
             },{
                 "name": "patty (4oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 1.70,
                 "image": " ",
                 "alt": "patty_image"
@@ -195,11 +208,13 @@
         "main_meats":[
             {
                 "name": "Small patty (2oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 1.10,
                 "image": " ",
                 "alt": "small_patty_image"
             },{
                 "name": "large patty (4oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 1.70,
                 "image": " ",
                 "alt": "large_patty_image"
@@ -228,11 +243,13 @@
         "main_meats":[
             {
                 "name": "small patty (2oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 1.10,
                 "image": " ",
                 "alt": "small_patty_image"
             },{
                 "name": "large patty (4oz)",
+                "genericNames": ["beef", "burger patty", "patty"],
                 "price": 1.70,
                 "image": " ",
                 "alt": "large_patty_image"
