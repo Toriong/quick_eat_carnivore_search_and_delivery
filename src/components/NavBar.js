@@ -10,31 +10,33 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 const NavBar = () => {
-    const { confirmedPriceTotal, confirmedQuantityOfOrder, confirmedNameOfRestaurantOfOrder, confirmedNameOfOrder } = useContext(MeatInfoContext);
+    const { confirmedPriceTotal, confirmedQuantityOfOrder, confirmedNameOfRestaurantOfOrder, confirmedNameOfOrder, openResultsContainer, searchBarOrder } = useContext(MeatInfoContext);
     const [isCartOpen, setIsCartOpen] = useState(false);
-    const [confirmedQuantity,] = confirmedQuantityOfOrder;
-    const [confirmedOrderPrice,] = confirmedPriceTotal;
-    const [nameOfRestaurant, setNameOfRestaurant] = confirmedNameOfRestaurantOfOrder;
-    const [nameOfOrder, setNameOfOrder] = confirmedNameOfOrder;
-    const [changeQuantityOfOrder, setChangeQuantityOfOrder] = useState(confirmedQuantity)
     const [isSideNavBarOpen, setIsSideNavBarOpen] = useState(false);
-    const [isSearchResultsContainerOpen, setIsSearchResultsContainerOpen] = useState(false);
+    const [confirmedQuantity,] = confirmedQuantityOfOrder;
+    const [changeQuantityOfOrder, setChangeQuantityOfOrder] = useState(confirmedQuantity)
+    const [confirmedOrderPrice,] = confirmedPriceTotal;
+    const [nameOfOrder, setNameOfOrder] = confirmedNameOfOrder;
+    const [nameOfRestaurant, setNameOfRestaurant] = confirmedNameOfRestaurantOfOrder;
+    const [isSearchResultsOpen, setIsSearchResultsOpen] = openResultsContainer;
+    const [userWantsToOrderFromSearchBar, setUserWantsToOrderFromSearchBar] = searchBarOrder;
     const [searchInput, setSearchInput] = useState("");
     const openSearchResultsContainer = (event) => {
-        setIsSearchResultsContainerOpen(true);
+        setIsSearchResultsOpen(true);
         setSearchInput(event.target.value);
     }
+    // useEffect(() => {
+    //     document.body.addEventListener('click', () => { setIsSearchResultsOpen(false) });
+    //     return () => { window.removeEventListener('click', () => { setIsSearchResultsOpen(false) }); }
+    // }, [])
     useEffect(() => {
-        console.log(searchInput);
+        // document.body.addEventListener('click', () => { setIsCartOpen(!isCartOpen) });
     })
     const editQuantityNum = (event) => {
         let value = event.target.value;
         setChangeQuantityOfOrder(value);
     }
-    const openSideNavBar = () => {
-        console.log('open side navbar')
-        setIsSideNavBarOpen(!isSideNavBarOpen)
-    }
+
     return <>
         {isSideNavBarOpen ?
             <>
@@ -71,7 +73,6 @@ const NavBar = () => {
             <div className="hide-side-navbar">
 
             </div>
-
         }
         <div className="unfixed-wrapper">
             <div className="navbar">
@@ -110,9 +111,12 @@ const NavBar = () => {
                         </div>
                         <input type="text" className="search-input" value={searchInput} onChange={openSearchResultsContainer} />
                     </div>
-                    {isSearchResultsContainerOpen ?
+                    {isSearchResultsOpen ?
                         <div className="search-results-container">
-                            <SearchResults searchInput={searchInput} />
+                            {searchInput.length > 0 ? <div>Results related to: "{searchInput}"</div> : <div>Results related to: </div>}
+                            <div className="search-results-sub-container">
+                                <SearchResults searchInput={searchInput} />
+                            </div>
                         </div>
                         :
                         null
@@ -178,6 +182,7 @@ const NavBar = () => {
                 </div>
             </div>
         </div>
+        {/* place the meat item component here */}
     </>
 }
 
