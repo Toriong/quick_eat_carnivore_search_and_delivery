@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { MeatInfoContext } from './MeatInfoProvider'
 import { useParams } from 'react-router-dom';
 import meatList from '../data/Meat-Shops.json'
-import MeatItem from './MeatItem'
+import MeatItemDisplayOnMenu from './MeatItemDisplayOnMenu'
 
 
 
@@ -21,8 +21,7 @@ const Menu = () => {
         </div>
         <div className="meatItems-container">
             {selectedRestaurantInfo.main_meats.map((meat) => {
-                console.log(meat);
-                return <MeatItem meatItemInfo={meat} addOns={selectedRestaurantInfo.add_ons} selectRestaurantName={selectedRestaurantInfo.domDisplayName} openMeatItemModalTOrF={false} />
+                return <MeatItemDisplayOnMenu meatItemInfo={meat} addOns={selectedRestaurantInfo.add_ons} restaurantName={selectedRestaurantInfo.domDisplayName} isMainMeatsMenuDisplayedOnDom={true} meatItemModalWasOpenedFromSearchContainer={false} />
             })}
         </div>
     </div>

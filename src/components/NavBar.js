@@ -1,6 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchResults from './SearchResults';
+import OrderMeatOrGoToResModal from './OrderMeatOrGoToResModal';
+import SelectedMeatItemViewerToOrderModal from './SelectedMeatItemViewerToOrderModal'
 import { MeatInfoContext } from './MeatInfoProvider';
 import 'font-awesome/css/font-awesome.min.css'
 import { BrowserRouter } from 'react-router-dom';
@@ -10,7 +12,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 const NavBar = () => {
-    const { confirmedPriceTotal, confirmedQuantityOfOrder, confirmedNameOfRestaurantOfOrder, confirmedNameOfOrder, openResultsContainer, searchBarOrder } = useContext(MeatInfoContext);
+    const { confirmedPriceTotal, confirmedQuantityOfOrder, confirmedNameOfRestaurantOfOrder, confirmedNameOfOrder, openResultsContainer, selectedMeatItemToOrderModal, isMeatItemModalOpenFromSearchBar, isGoToResaurantMenuOrOrderMeatItemModalOpen, meatItemInfoSelectedFromSearchBar } = useContext(MeatInfoContext);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isSideNavBarOpen, setIsSideNavBarOpen] = useState(false);
     const [confirmedQuantity,] = confirmedQuantityOfOrder;
@@ -18,8 +20,12 @@ const NavBar = () => {
     const [confirmedOrderPrice,] = confirmedPriceTotal;
     const [nameOfOrder, setNameOfOrder] = confirmedNameOfOrder;
     const [nameOfRestaurant, setNameOfRestaurant] = confirmedNameOfRestaurantOfOrder;
+    const [userWantsToOrderMeatFromSearchBar, setUserWantsToOrderMeatFromSearchBar] = isMeatItemModalOpenFromSearchBar;
+    const [selectedMeatItemInfoFromSearchBar, setSelectedMeatItemInfoFromSeachBar] = meatItemInfoSelectedFromSearchBar;
     const [isSearchResultsOpen, setIsSearchResultsOpen] = openResultsContainer;
-    const [userWantsToOrderFromSearchBar, setUserWantsToOrderFromSearchBar] = searchBarOrder;
+    // const [openMeatItemModal, setOpenMeatItemModal] = openMeatItemModalCondition
+    const [isOrderMeatItemOrGoToRestaurantMenuModalOpen, setIsOrderMeatItemOrGoToRestaurantMenuModalOpen] = isGoToResaurantMenuOrOrderMeatItemModalOpen;
+    const [meatItemToOrderModal, setMeatItemToOrderModal] = selectedMeatItemToOrderModal;
     const [searchInput, setSearchInput] = useState("");
     const openSearchResultsContainer = (event) => {
         setIsSearchResultsOpen(true);
@@ -30,7 +36,10 @@ const NavBar = () => {
     //     return () => { window.removeEventListener('click', () => { setIsSearchResultsOpen(false) }); }
     // }, [])
     useEffect(() => {
-        // document.body.addEventListener('click', () => { setIsCartOpen(!isCartOpen) });
+
+        console.log("selectedMeatItemInfoFromSearchBar.restaurantInfo", selectedMeatItemInfoFromSearchBar.restaurantInfo);
+        console.log("selectedMeatItemInfoFromSearchBar.restaurantInfo", selectedMeatItemInfoFromSearchBar.meatItemInfo);
+
     })
     const editQuantityNum = (event) => {
         let value = event.target.value;
@@ -182,7 +191,25 @@ const NavBar = () => {
                 </div>
             </div>
         </div>
-        {/* place the meat item component here */}
+
+        {userWantsToOrderMeatFromSearchBar ?
+            <>
+                <div className="blocker" onClick={() => { setUserWantsToOrderMeatFromSearchBar(false) }} />
+                <SelectedMeatItemViewerToOrderModal
+                    meatItemInfo={selectedMeatItemInfoFromSearchBar.meatItemInfo}
+                    addOns={selectedMeatItemInfoFromSearchBar.restaurantInfo.add_ons}
+                    restaurantName={selectedMeatItemInfoFromSearchBar.restaurantInfo.domDisplayName}
+                />
+            </>
+            :
+            null
+        }
+        {isOrderMeatItemOrGoToRestaurantMenuModalOpen ?
+            <OrderMeatOrGoToResModal />
+            :
+            null
+        }
+
     </>
 }
 
