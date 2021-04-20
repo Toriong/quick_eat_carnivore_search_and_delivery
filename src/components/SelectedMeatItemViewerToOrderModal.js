@@ -1,21 +1,25 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { MeatInfoContext } from './MeatInfoProvider';
+import AddOnItems from './AddOnItems'
 
 const SelectedMeatItemViewerToOrderModal = ({ meatItemInfo, restaurantName, addOns }) => {
     const { confirmedPriceTotal, confirmedQuantityOfOrder, confirmedNameOfRestaurantOfOrder, confirmedNameOfOrder } = useContext(MeatInfoContext);
-    let [mainMeatCount, setMainMetCount] = useState(1);
+    let [mainMeatCount, setMainMeatCount] = useState(1);
     const [orderTotal, setOrderTotal] = useState(meatItemInfo.price);
     const [hasOrderTotalIncreased, setHasOrderTotalIncreased] = useState(false);
-    const priceChange = (countIncrement) => {
-        setMainMetCount(countIncrement);
-        if (mainMeatCount === 0) {
-            setMainMetCount(++mainMeatCount);
+    const [addOnCount, setAddOnCount] = useState(0)
+    // updated priceChange function:
+    // WHAT I WANT: I want this function to take in as its parameter the updated price when the user presses on the plus button. 
+    const priceChange = (countIncrement, meatItemPrice, count, equation, setCount) => {
+        setCount(countIncrement);
+        if (count === 0) {
+            setCount(++count);
             return;
         }
-        setOrderTotal(mainMeatCount * meatItemInfo.price);
-        if (orderTotal === meatItemInfo.price) {
+        setOrderTotal(equation);
+        if (orderTotal === meatItemPrice) {
             setHasOrderTotalIncreased(!hasOrderTotalIncreased);
-        } else if (orderTotal > meatItemInfo.price) {
+        } else if (orderTotal > meatItemPrice) {
             setHasOrderTotalIncreased(!hasOrderTotalIncreased);
         }
     }
@@ -32,10 +36,11 @@ const SelectedMeatItemViewerToOrderModal = ({ meatItemInfo, restaurantName, addO
         setNameOfOrder(meatItemInfo.name)
     };
 
+    useEffect(() => {
+        console.log(orderTotal);
+    })
 
     const [isAddOnMenuOpen, setIsAddOnMenuOpen] = useState(false);
-
-
 
     return <div className="selected-food-modal">
         <div className="picture-container">
@@ -49,31 +54,29 @@ const SelectedMeatItemViewerToOrderModal = ({ meatItemInfo, restaurantName, addO
         </div>
         {isAddOnMenuOpen ?
             <>
-                <div className="add-on-container">
-                    <div className="add-on-text-container">
-                        <h2>Add-On:</h2>
-                        <div className="arrow-container">
-                            <i class="fa fa-angle-down" aria-hidden="true" onClick={() => { setIsAddOnMenuOpen(!isAddOnMenuOpen) }}></i>
-                        </div>
+                {/* <div className="add-ons-container"> */}
+                <div className="add-ons-text-container">
+                    <h2>Add-On:</h2>
+                    <div className="arrow-container">
+                        <i class="fa fa-angle-down" aria-hidden="true" onClick={() => { setIsAddOnMenuOpen(!isAddOnMenuOpen) }}></i>
                     </div>
                 </div>
+                {/* </div> */}
                 <div className="add-ons-list-container">
                     {addOns.map((addOnItem) => {
-                        return <div>
-                            <h1>{addOnItem.name}</h1>
-                        </div>
+                        return <AddOnItems addOnItem={addOnItem} orderTotal={orderTotal} setOrderTotal={setOrderTotal} mainMeatCount={mainMeatCount} />
                     })}
                 </div>
             </>
             :
-            <div className="add-on-container">
-                <div className="add-on-text-container">
-                    <h2>Add-On:</h2>
-                    <div className="arrow-container">
-                        <i class="fa fa-angle-up" aria-hidden="true" onClick={() => { setIsAddOnMenuOpen(!isAddOnMenuOpen) }}></i>
-                    </div>
+            /* <div className="add-ons-container"> */
+            <div className="add-ons-text-container">
+                <h2>Add-On:</h2>
+                <div className="arrow-container">
+                    <i class="fa fa-angle-up" aria-hidden="true" onClick={() => { setIsAddOnMenuOpen(!isAddOnMenuOpen) }}></i>
                 </div>
             </div>
+            /* </div> */
         }
         <div className="quantity-and-add-to-cart-container">
             <div className="quantity-buttons-container">
@@ -85,13 +88,13 @@ const SelectedMeatItemViewerToOrderModal = ({ meatItemInfo, restaurantName, addO
             </div>
             <div className="add-to-cart-button-quauntity-button-container">
                 <div className="quantity-button-container">
-                    <div className="plus-sign" onClick={() => { priceChange(++mainMeatCount) }}>
+                    <div className="plus-sign" onClick={() => { priceChange(++mainMeatCount, meatItemInfo.price, mainMeatCount, mainMeatCount * meatItemInfo.price, setMainMeatCount) }}>
                         +
-                        </div>
+                    </div>
                     <div className="count">{mainMeatCount}</div>
-                    <div className="minus-sign" onClick={() => { priceChange(--mainMeatCount) }}>
+                    <div className="minus-sign" onClick={() => { priceChange(--mainMeatCount, meatItemInfo.price, mainMeatCount, mainMeatCount * meatItemInfo.price, setMainMeatCount) }}>
                         -
-                        </div>
+                    </div>
                 </div>
                 <div className="add-to-cart-button" onClick={confirmedOrder}>
                     <div className="add-option-text">
