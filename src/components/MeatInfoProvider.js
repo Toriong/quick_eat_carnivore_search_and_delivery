@@ -11,11 +11,12 @@ export const MeatInfoProvider = (props) => {
     let [confirmedCount, setConfirmedCount] = useState(0);
     const [isSearchResultsContainerOpen, setIsSearchResultsContainerOpen] = useState(false)
     const [userWantsToOrderMeatFromSearchBar, setUserWantsToOrderMeatFromSearchBar] = useState(false);
-    const [meatItemToOrderModal, setMeatItemToOrderModal] = useState('')
+    const [meatItemToOrderModal, setMeatItemToOrderModal] = useState('');
     const [openMeatItemModalFromSearchContainer, setOpenMeatItemModalFromSearchContainer] = useState(false);
     const [orderMeatItemOrGoToRestaurantMenuModal, setOrderMeatItemOrGoToRestaurantMenuModal] = useState('');
     const [isOrderMeatItemOrGoToRestaurantMenuModalOpen, setIsOrderMeatItemOrGoToRestaurantMenuModalOpen] = useState(false);
-    const [selectedMeatItemInfoFromSearchBar, setSelectedMeatItemInfoFromSeachBar] = useState('')
+    const [selectedMeatItemInfoFromSearchBar, setSelectedMeatItemInfoFromSeachBar] = useState('');
+    const [selectedAddOnPrices, setSelectedAddOnPrices] = useState([0]);
 
 
     return <MeatInfoContext.Provider value={{
@@ -29,7 +30,8 @@ export const MeatInfoProvider = (props) => {
         fromSearchContainerOpenMeatItemModal: [openMeatItemModalFromSearchContainer, setOpenMeatItemModalFromSearchContainer],
         goToRestaurantOrOrderMeatItem: [orderMeatItemOrGoToRestaurantMenuModal, setOrderMeatItemOrGoToRestaurantMenuModal],
         isGoToResaurantMenuOrOrderMeatItemModalOpen: [isOrderMeatItemOrGoToRestaurantMenuModalOpen, setIsOrderMeatItemOrGoToRestaurantMenuModalOpen],
-        meatItemInfoSelectedFromSearchBar: [selectedMeatItemInfoFromSearchBar, setSelectedMeatItemInfoFromSeachBar]
+        meatItemInfoSelectedFromSearchBar: [selectedMeatItemInfoFromSearchBar, setSelectedMeatItemInfoFromSeachBar],
+        listOfSelectedAddOnPrices: [selectedAddOnPrices, setSelectedAddOnPrices]
 
     }}>
         {props.children}

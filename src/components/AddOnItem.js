@@ -1,23 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquare, faCheckSquare } from '@fortawesome/free-solid-svg-icons'
+import { MeatInfoContext } from './MeatInfoProvider'
 
+const AddOnItem = ({ addOnItem, mainMeatCount, setOrderTotal, meatItemInfoPrice, orderTotal }) => {
+    const { listOfSelectedAddOnPrices } = useContext(MeatInfoContext);
 
-const AddOnItem = ({ addOnItem, orderTotal, setOrderTotal, mainMeatCount }) => {
-    const [uncheckedBoxClicked, setUncheckedBoxClicked] = useState(false)
-    useEffect(() => {
-        console.log(uncheckedBoxClicked);
-    })
-    const addAddOnPriceToTotalOrder = (equation) => {
-        setUncheckedBoxClicked(!uncheckedBoxClicked);
-        setOrderTotal(equation)
+    const [boxClicked, setBoxClicked] = useState(false);
+
+    const [selectedAddOnPrices, setSelectedAddOnPrices] = listOfSelectedAddOnPrices;
+
+    const addSelectedAddOnPriceToOrderTotal = () => {
+        setSelectedAddOnPrices([...selectedAddOnPrices, addOnItem.price]);
+        console.log(selectedAddOnPrices);
+        setBoxClicked(!boxClicked);
     }
+
+    useEffect(() => {
+        console.log(selectedAddOnPrices);
+        if (boxClicked === true) {
+            setOrderTotal((mainMeatCount * meatItemInfoPrice) + (selectedAddOnPrices.reduce((priceA, priceB) => priceA + priceB) * mainMeatCount));
+        }
+    })
+
     return <div className="add-on">
         <div className="check-container">
-            {uncheckedBoxClicked ?
-                <FontAwesomeIcon icon={faCheckSquare} onClick={() => { addAddOnPriceToTotalOrder(orderTotal - (mainMeatCount * addOnItem.price)) }} />
+            {boxClicked ?
+                <FontAwesomeIcon icon={faCheckSquare} />
                 :
-                <FontAwesomeIcon icon={faSquare} onClick={() => { addAddOnPriceToTotalOrder(orderTotal + (mainMeatCount * addOnItem.price)) }} />
+                <FontAwesomeIcon icon={faSquare} onClick={addSelectedAddOnPriceToOrderTotal} />
             }
         </div>
         <div className="add-on-name">

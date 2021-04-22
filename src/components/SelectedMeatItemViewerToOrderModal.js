@@ -1,33 +1,30 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { MeatInfoContext } from './MeatInfoProvider';
-import AddOnItems from './AddOnItems'
+import AddOnItem from './AddOnItem'
 
 const SelectedMeatItemViewerToOrderModal = ({ meatItemInfo, restaurantName, addOns }) => {
-    const { confirmedPriceTotal, confirmedQuantityOfOrder, confirmedNameOfRestaurantOfOrder, confirmedNameOfOrder } = useContext(MeatInfoContext);
+    const { confirmedPriceTotal, confirmedQuantityOfOrder, confirmedNameOfRestaurantOfOrder, confirmedNameOfOrder, listOfSelectedAddOnPrices } = useContext(MeatInfoContext);
     let [mainMeatCount, setMainMeatCount] = useState(1);
     const [orderTotal, setOrderTotal] = useState(meatItemInfo.price);
     const [hasOrderTotalIncreased, setHasOrderTotalIncreased] = useState(false);
-    const [addOnCount, setAddOnCount] = useState(0)
-    // updated priceChange function:
-    // WHAT I WANT: I want this function to take in as its parameter the updated price when the user presses on the plus button. 
-    const priceChange = (countIncrement, meatItemPrice, count, equation, setCount) => {
-        setCount(countIncrement);
-        if (count === 0) {
-            setCount(++count);
-            return;
-        }
-        setOrderTotal(equation);
-        if (orderTotal === meatItemPrice) {
-            setHasOrderTotalIncreased(!hasOrderTotalIncreased);
-        } else if (orderTotal > meatItemPrice) {
-            setHasOrderTotalIncreased(!hasOrderTotalIncreased);
-        }
-    }
 
+    const [selectedAddOnPrices, setSelectedAddOnPrices] = listOfSelectedAddOnPrices;
     const [confirmedOrderPriceTotal, setConfirmedOrderPriceTotal] = confirmedPriceTotal;
     const [confirmedCount, setConfirmedCount] = confirmedQuantityOfOrder;
     const [restaurantOfOrderConfirmed, setRestaurantOfOrderConfirmed] = confirmedNameOfRestaurantOfOrder;
     const [nameOfOrder, setNameOfOrder] = confirmedNameOfOrder;
+
+    // increment will be the mainMeatCount
+    const orderTotalChange = (increment) => {
+        setMainMeatCount(increment);
+        if (mainMeatCount === 0) {
+            setMainMeatCount(++mainMeatCount);
+            return;
+        }
+        let meatTotalPrice = mainMeatCount * meatItemInfo.price;
+        let addOnTotalPrice = selectedAddOnPrices.reduce((priceA, priceB) => (priceA + priceB) * mainMeatCount);
+        setOrderTotal(addOnTotalPrice + meatTotalPrice)
+    }
 
     const confirmedOrder = () => {
         setConfirmedOrderPriceTotal(orderTotal);
@@ -37,7 +34,7 @@ const SelectedMeatItemViewerToOrderModal = ({ meatItemInfo, restaurantName, addO
     };
 
     useEffect(() => {
-        console.log(orderTotal);
+        console.log("orderTotal", orderTotal);
     })
 
     const [isAddOnMenuOpen, setIsAddOnMenuOpen] = useState(false);
@@ -64,7 +61,7 @@ const SelectedMeatItemViewerToOrderModal = ({ meatItemInfo, restaurantName, addO
                 {/* </div> */}
                 <div className="add-ons-list-container">
                     {addOns.map((addOnItem) => {
-                        return <AddOnItems addOnItem={addOnItem} orderTotal={orderTotal} setOrderTotal={setOrderTotal} mainMeatCount={mainMeatCount} />
+                        return <AddOnItem addOnItem={addOnItem} mainMeatCount={mainMeatCount} setOrderTotal={setOrderTotal} meatItemInfoPrice={meatItemInfo.price} orderTotal={orderTotal} />
                     })}
                 </div>
             </>
@@ -88,11 +85,11 @@ const SelectedMeatItemViewerToOrderModal = ({ meatItemInfo, restaurantName, addO
             </div>
             <div className="add-to-cart-button-quauntity-button-container">
                 <div className="quantity-button-container">
-                    <div className="plus-sign" onClick={() => { priceChange(++mainMeatCount, meatItemInfo.price, mainMeatCount, mainMeatCount * meatItemInfo.price, setMainMeatCount) }}>
+                    <div className="plus-sign" onClick={() => { orderTotalChange(++mainMeatCount) }}>
                         +
                     </div>
                     <div className="count">{mainMeatCount}</div>
-                    <div className="minus-sign" onClick={() => { priceChange(--mainMeatCount, meatItemInfo.price, mainMeatCount, mainMeatCount * meatItemInfo.price, setMainMeatCount) }}>
+                    <div className="minus-sign" onClick={() => { orderTotalChange(--mainMeatCount) }}>
                         -
                     </div>
                 </div>
