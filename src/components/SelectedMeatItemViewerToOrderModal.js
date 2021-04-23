@@ -21,9 +21,8 @@ const SelectedMeatItemViewerToOrderModal = ({ meatItemInfo, restaurantName, addO
             setMainMeatCount(++mainMeatCount);
             return;
         }
-        let meatTotalPrice = mainMeatCount * meatItemInfo.price;
-        let addOnTotalPrice = selectedAddOnPrices.reduce((priceA, priceB) => (priceA + priceB) * mainMeatCount);
-        setOrderTotal(addOnTotalPrice + meatTotalPrice)
+        let selectedAddOnPricesSum = selectedAddOnPrices.reduce((priceA, priceB) => priceA + priceB);
+        setOrderTotal(((selectedAddOnPricesSum * mainMeatCount) + (mainMeatCount * meatItemInfo.price)).toFixed(2))
     }
 
     const confirmedOrder = () => {

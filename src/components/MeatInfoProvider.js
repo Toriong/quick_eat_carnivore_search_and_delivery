@@ -17,6 +17,7 @@ export const MeatInfoProvider = (props) => {
     const [isOrderMeatItemOrGoToRestaurantMenuModalOpen, setIsOrderMeatItemOrGoToRestaurantMenuModalOpen] = useState(false);
     const [selectedMeatItemInfoFromSearchBar, setSelectedMeatItemInfoFromSeachBar] = useState('');
     const [selectedAddOnPrices, setSelectedAddOnPrices] = useState([0]);
+    const [namesOfTheSelectedAddOns, setNamesOfTheSelectedAddOns] = useState([])
 
 
     return <MeatInfoContext.Provider value={{
@@ -31,8 +32,8 @@ export const MeatInfoProvider = (props) => {
         goToRestaurantOrOrderMeatItem: [orderMeatItemOrGoToRestaurantMenuModal, setOrderMeatItemOrGoToRestaurantMenuModal],
         isGoToResaurantMenuOrOrderMeatItemModalOpen: [isOrderMeatItemOrGoToRestaurantMenuModalOpen, setIsOrderMeatItemOrGoToRestaurantMenuModalOpen],
         meatItemInfoSelectedFromSearchBar: [selectedMeatItemInfoFromSearchBar, setSelectedMeatItemInfoFromSeachBar],
-        listOfSelectedAddOnPrices: [selectedAddOnPrices, setSelectedAddOnPrices]
-
+        listOfSelectedAddOnPrices: [selectedAddOnPrices, setSelectedAddOnPrices],
+        listOfSelectedAddOnNames: [namesOfTheSelectedAddOns, setNamesOfTheSelectedAddOns]
     }}>
         {props.children}
     </MeatInfoContext.Provider>
