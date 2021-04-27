@@ -10,10 +10,7 @@ import MeatItemDisplayOnMenu from './MeatItemDisplayOnMenu'
 const Menu = () => {
     const { storeName } = useParams();
     const selectedRestaurantInfo = meatList.find((restaurant) => restaurant.urlParams === storeName);
-    // useEffect(() => {
-    //     console.log(selectedRestaurantInfo)
 
-    // })
     return <div className="main-meats">
         <div>
             <h1>{selectedRestaurantInfo.domDisplayName}</h1>
