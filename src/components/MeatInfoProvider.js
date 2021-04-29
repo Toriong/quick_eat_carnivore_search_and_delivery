@@ -19,10 +19,11 @@ export const MeatInfoProvider = (props) => {
     const [selectedAddOnPrices, setSelectedAddOnPrices] = useState([0]);
     const [namesOfTheSelectedAddOns, setNamesOfTheSelectedAddOns] = useState([])
     const [confirmedOrdersInfo, setConfirmedOrdersInfo] = useState([]);
-    const [selectedAddOnInfoToOrder, setSelectedAddOnInfoToOrder] = useState([]);
+    const [selectedAddOnInfoToOrder, setSelectedAddOnInfoToOrder] = useState([{ name: null, price: 0 }]);
     const [totalAddOnPrice, setTotalAddOnPrice] = useState(0);
     const [cartTotal, setCartTotal] = useState('');
     const [sumQuantityTotalOfOrders, setSumQuantityTotalOfOrders] = useState(0);
+    const [makesEditsToCartOrder, setMakesEditsToCartOrder] = useState(false)
 
 
 
@@ -44,7 +45,8 @@ export const MeatInfoProvider = (props) => {
         ordersInfoConfirmed: [confirmedOrdersInfo, setConfirmedOrdersInfo],
         infoOfSelectedAddOnsToOrder: [selectedAddOnInfoToOrder, setSelectedAddOnInfoToOrder],
         totalOfCart: [cartTotal, setCartTotal],
-        ordersSumQuantityTotal: [sumQuantityTotalOfOrders, setSumQuantityTotalOfOrders]
+        ordersSumQuantityTotal: [sumQuantityTotalOfOrders, setSumQuantityTotalOfOrders],
+        editCartOrder: [makesEditsToCartOrder, setMakesEditsToCartOrder]
     }}>
         {props.children}
     </MeatInfoContext.Provider>
